@@ -7,8 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Imunisasi extends Model
 {
     protected $table = 'imunisasi';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 
-    public function id_kabupaten() {
-        return $this->belongsTo(Jatim::class, 'kabupaten_id', 'id_kabupaten');
+    public function getJatim() {
+        return $this->hasOne(Jatim::class, 'gid', 'id_jatim');
     }
+
+    public function getPeriode() {
+        return $this->hasOne(Periode::class, 'id', 'id_periode');
+    }
+
+
+
 }

@@ -14,7 +14,7 @@ class CreateKasusesTable extends Migration
     public function up()
     {
         Schema::create('kasus', function (Blueprint $table) {
-            $table->bigIncrements('id_kasus');
+            $table->bigIncrements('id');
             $table->integer('jml_penderita');
             $table->integer('kematian');
             $table->unsignedBigInteger('kabupaten_id');

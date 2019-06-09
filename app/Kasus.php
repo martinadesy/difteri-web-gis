@@ -7,8 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Kasus extends Model
 {
     protected $table = 'kasus';
+    public $timestamps = false;
 
-    public function id_kabupaten() {
-        return $this->belongsTo(Jatim::class, 'kabupaten_id', 'id_kabupaten');
+    protected $fillable = ['jml_penderita', 'kematian', 'id_jatim', 'id_periode'];
+
+    public function getJatim() {
+        return $this->hasOne(Jatim::class, 'gid', 'id_jatim');
+    }
+
+    public function getPeriode() {
+        return $this->hasOne(Periode::class, 'id', 'id_periode');
     }
 }
