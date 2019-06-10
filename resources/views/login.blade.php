@@ -28,7 +28,10 @@
 
         body {
             /*background-image: url("public/assets/img/brand/new1.jpg");*/
-            background: #0d2b3e;
+            /*background: #0d2b3e;*/
+            background: #3F5EFB;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #3F5EFB, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -269,31 +272,34 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
         <form action="#">
-            <h1>Create Account</h1>
+            <h1 style="color: #1d32aa">DiphRate</h1>
+            <span>The Risk Rate of Diphtheria in East Java</span>
             <br>
-            <h2 style="color: #1d32aa">DiphRate</h2>
+            <h2>Create Account</h2>
             {{--<div class="social-container">--}}
                 {{--<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>--}}
                 {{--<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>--}}
                 {{--<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>--}}
             {{--</div>--}}
-            <span>The Risk Rate of Diphtheria in East Java</span>
+
             <input type="text" placeholder="Name" />
             <input type="password" placeholder="Password" />
             <button>Sign Up</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
-        <form role="form" action="" onsubmit="return false" id="form-konten">
-            <h1>Sign In</h1>
-            <br>
-            <h2 style="color: #1d32aa">DiphRate</h2>
+            <form role="form" action="" onsubmit="return false" id="form-konten">
+                <h1 style="color: #1d32aa">DiphRate</h1>
+                <span>The Risk Rate of Diphtheria in East Java</span>
+                <br>
+                <h2>Sign In</h2>
+
             {{--<div class="social-container">--}}
                 {{--<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>--}}
                 {{--<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>--}}
                 {{--<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>--}}
             {{--</div>--}}
-            <span>The Risk Rate of Diphtheria in East Java</span>
+
 
             <input type="text" name="username" placeholder="Username" />
             <input type="password" name="password" placeholder="Password" />
