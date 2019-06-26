@@ -4,12 +4,10 @@
     <form action="{{ route('crudkasus.create') }}" method="POST" id="form-konten" class='form-horizontal'>
 
         <div class="form-group">
-            <label class="form-control-label" for="exampleFormControlSelect1">Periode</label>
+            <label class="form-control-label" for="exampleFormControlSelect1">Periode
             <select class="form-control" id="exampleFormControlSelect1" name="id_periode">
-                @foreach($periode as $key =>$item)
-                    <option value="{{$item->id}}">{{$item->tahun}}</option>
-                @endforeach
             </select>
+            </label>s
         </div>
 
         <div class="form-group">

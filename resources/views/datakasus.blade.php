@@ -14,10 +14,10 @@
 
                 </div>
 
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
 
                                 <div class="row">
                                     <div class="text-left col-sm-12 col-md-6">
@@ -25,29 +25,29 @@
                                             <button align="left" type="button" class="btn btn-primary">
                                                 <i class="fa fa-plus"></i>
                                                 Add Data
-                                        </button>
+                                            </button>
                                         </a>
                                     </div>
-                                <div class="col text-right">
 
-                                    <div class="dropdown-menu-sm-right col-sm-12 col-md-0">
-                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Periode
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">2013</a>
-                                            <a class="dropdown-item" href="#">2014</a>
-                                            <a class="dropdown-item" href="#">2015</a>
-                                            <a class="dropdown-item" href="#">2016</a>
-                                            <a class="dropdown-item" href="#">2017</a>
-                                            <a class="dropdown-item" href="#">2018</a>
+                                    <div class="col text-right">
+                                        <div class="dropdown-menu-sm-right col-sm-12 col-md-0">
+                                            <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Periode
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                @for($i = 2013 ; $i <= date('Y'); $i += 1)
+                                                    <a class="dropdown-item" value="{{$i}}">{{$i}}</a>
+                                                @endfor
+                                                    {{--@for($i = 2013 ; $i <= date('Y'); $i += 1)--}}
+                                                        {{--<option </option>--}}
+                                                    {{--@endfor--}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>
-                        </div>
+                            </div>
 
-                            <table class="table table-flush" id="datatable-buttons">
+                            <table class="table table-flush" id="myTable">
                                 <thead class="thead-light">
                                 <tr>
                                     <th>No</th>
@@ -57,21 +57,21 @@
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
+                                <tbody id="tableBody">
+                                <td colspan="10" class="center">Memuat ...</td>
+                                </tbody>
+                                <tbody>
                                 @foreach($kasus as $data)
-
-
                                     <tr>
-
-                                        <th>
-                                        {{$data->id}}
-                                        </th>
-                                        <th>{{$data->getJatim->nama_kab}}</th>
-                                        <th>{{$data->jml_penderita}}</th>
-                                        <th>{{$data->kematian}}</th>
-                                        <th>
+                                        <td>
+                                            {{$data->id}}
+                                        </td>
+                                        <td>{{$data->getJatim->nama_kab}}</td>
+                                        <td>{{$data->jml_penderita}}</td>
+                                        <td>{{$data->kematian}}</td>
+                                        <td>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#editModal{{ $data->id }}">
+                                                    onclick="loadModal(this)" target="/update" data-target="{{ $data->id }}">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </button>
 
@@ -95,7 +95,7 @@
                                                         </div>
                                                         <div class="modal-body bg-gradient-pink text-white">
                                                             <div class="text-center">
-                                                                <a href="{{ route("datakasus", ["id" => $data->id]) }}"
+                                                                <a href="{{ route("destroy", ["id" => $data->id]) }}"
                                                                    class="btn btn-white mt-4">{{ __('Ya, yakin') }}</a>
                                                                 <button type="button" data-dismiss="modal"
                                                                         class="btn btn-white mt-4">{{ __('Tidak') }}</button>
@@ -104,20 +104,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </th>
+                                        </td>
                                     </tr>
                                 @endforeach
-                                </tfoot>
+                                </tbody>
 
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-                    </div>
-                </div>
+        </div>
+    </div>
 
-            </div>
+    </div>
 
 
 
