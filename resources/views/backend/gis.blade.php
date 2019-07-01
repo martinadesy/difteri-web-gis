@@ -1,14 +1,36 @@
 @extends('layout.main')
 @section('content')
-    <div style="height: 500px;" id="mapid"></div>
-    <br>
+    <div class="card bg-gradient-default">
+        <div class="card-body">
+            <h3 class="card-title text-white">GIS Kumulatif</h3>
+           <div id="mapid"></div>
+        </div>
+    </div>
 
 
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    {{--<script src="assets/js/leaflet.ajax.js"></script>--}}
+
 @endsection
+
 @section('scripts')
-    <script type="text/javascript"> var mymap = L.map('mapid').setView([-6.909455, 111.3381909], 7);
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tabel-administrasi').DataTable({
+                language: {
+                    paginate: {
+                        previous: "<i class='ni ni-bold-left'></i>",
+                        next: "<i class='ni ni-bold-right'></i>"
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+            integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+            crossorigin=""></script>
+    <script>
+        mymap = L.map('mapid').setView([-6.909455, 111.3381909], 7);
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
@@ -16,50 +38,55 @@
             accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
         }).addTo(mymap);
 
-        $.ajax({ // ini perintah syntax ajax untuk memanggil vektor
-            type: 'GET',
-            url: '{{url('gis-showgis')}}', // INI memanggil link request yang sebelumnya telah di buat
-            dataType: "json",
-            success: function(response){
-                var data=response[0];
-                var datageo=data["geojson"];
-                var geojson=data["geojson"];
-                console.log(data);
-                console.log(geojson);
-                L.geoJson(geojson,{
-                    style: function(feature){
-                        var Style1
-                        return { color: "#cc3f39" }; // ini adalah style yang akan digunakan
-                    },
-                    // MENAMPILKAN POPUP DENGAN ISI BERDASARKAN ATRIBUT KAB_KOTA
-                    onEachFeature: function( feature, layer ){
-                        // if (feature.properties.status_verif===1){
-                            layer.bindPopup(
-                                // "<div class='popup-header'> No. Sk Lahan : " + feature.properties.sk_lahan + "</div>"+
-                                // "<div class='popup-header'>Pemilik Lahan : "+ feature.properties.name+"</div>"+
-                                "<div class='popup-body'> Penderita : "+ feature.properties.jml_penderita+"</div>"+
-                                "<div class='popup-body'> Kematian : "+ feature.properties.kematian+"</div>"+
-                                "<div class='popup-body'> Kabupaten : "+ feature.properties.id_jatim+"</div>"+
-                                "<center>"+
-                                "</center>")
-                        //     )
-                        // }
-                        // else{
-                        //     layer.bindPopup(
-                        //         // "<div class='popup-header'> No. Sk Lahan : " + feature.properties.sk_lahan + "</div>"+
-                        //         // "<div class='popup-header'>Pemilik Lahan : "+ feature.properties.user_name+"</div>"+
-                        //         "<div class='popup-body'> Penderita : "+ feature.properties.jml_penderita+"</div>"+
-                        //         "<div class='popup-body'> Kematian : "+ feature.properties.kematian+"</div>"+
-                        //         "<div class='popup-body'> Kabupaten : "+ feature.properties.id_jatim+"</div>"+
-                        //         "<center>"+
-                        //         "<br><a onclick='verifData("+feature.properties.id+")' class='btn btn-success' title='Verifikasi Data' style='color: #ffffff'><i class='fas fa-certificate'></i>Verifikasi Data</a>" +
-                        //         "</center>"
-                        //     )
-                        // }
-                    }
-                }).addTo(mymap);  // di akhir selalu di akhiri dengan perintah ini karena objek akan ditambahkan ke map
+        function getColor(status) {
+            if (status === "tinggi") {
+                return '#ff0000'
+            }
+            if (status === "sedang") {
+                return '#ffff00'
+            }
+            if (status === "rendah") {
+                return '#00ff00'
+            }
+        }
+        function style(feature) {
+            return {
+                fillColor: getColor(feature.properties.VALUE),
+                weight: 1,
+                opacity: 0.4,
+                color: '#000',
+                fillOpacity: 0.5
+            };
+        }
+        // let data = [];
+        // L.geoJson(data, {
+        //     style: style,
+        //     onEachFeature: function (feature, layer) {
+        //         layer.bindPopup("<div><div class='row'><img width=128 height=128 src=" + feature.properties.NOMOR_PETA + ".jpg></div><div class=row><center><a href=http://tides.big.go.id/DEMNAS/download.php?download_file=DEMNAS_" + feature.properties.NOMOR_PETA + "_v1.0.tif>DEMNAS_" + feature.properties.NOMOR_PETA + "</a></center></div></div>");
+        //     }
+        // }).addTo(mymap);
 
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:5000/nilai-kerawanan/all',
+            dataType: "json",
+            success: function(data)
+            {
+                // console.log(data);
+                $.each(data.kerawanan, function(i, item) {
+                    // console.log(item);
+                    L.geoJson(JSON.parse(item.kabupaten[1]),{
+                        style: function(feature){
+                            return { color: getColor(item.status.toLowerCase()), weight: 0.4, opacity: 0.6, fillColor: item.color, fillOpacity: 0.6 };
+                        },
+                        onEachFeature: function( feature, layer ){
+                            layer.bindPopup("<div class='row col-12 center' style='height: 5px; background-color: blue;'></div><div class='row'>Kabupaten : " + item.kabupaten[0] + "</div><div class='row'>" + "Kerawanan : " + item.kerawanan + "</div><div class='row'>" + "Status : " + item.status + "</div>");
+                        }
+                    }).addTo(mymap);
+                });
             }
         });
+
+        {{--updateMap(({{ date('Y') }} - 5), {{ date('Y') }});--}}
     </script>
-    @endsection
+@endsection

@@ -5,7 +5,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
-    <div id="container" style="min-width: 500px; max-width: 1100px; height: 500px; margin: 0 auto"></div>
+    <div id="container" style="min-width: 500px; max-width: 1100px; height: auto; margin: 0 auto"></div>
     </html>
 
     <script type="text/javascript">
@@ -21,7 +21,44 @@
                 text: '38 Kabupaten</a>'
             },
             xAxis: {
-                categories: ['Pacitan', 'Lamonngan', 'Surabaya', 'Sampang', 'Ngawi'],
+                categories: ['PACITAN',
+                    'PONOROGO',
+                    'TRENGGALEK',
+                    'TULUNGAGUNG',
+                    'LUMAJANG',
+                    'BONDOWOSO',
+                    'PASURUAN',
+                    'JOMBANG',
+                    'NGANJUK',
+                    'MADIUN',
+                    'MAGETAN',
+                    'NGAWI',
+                    'BOJONEGORO',
+                    'TUBAN',
+                    'LAMONGAN',
+                    'BANGKALAN',
+                    'PAMEKASAN',
+                    'KEDIRI (KOTA)',
+                    'BLITAR (KOTA)',
+                    'MALANG (KOTA)',
+                    'PROBOLINGGO (KOTA)',
+                    'PASURUAN (KOTA)',
+                    'MOJOKERTO (KOTA)',
+                    'MADIUN (KOTA)',
+                    'SURABAYA (KOTA)',
+                    'BATU (KOTA)',
+                    'BLITAR',
+                    'KEDIRI',
+                    'MOJOKERTO',
+                    'BANYUWANGI',
+                    'GRESIK',
+                    'JEMBER',
+                    'MALANG',
+                    'PROBOLINGGO',
+                    'SAMPANG',
+                    'SIDOARJO',
+                    'SITUBONDO',
+                    'SUMENEP'],
                 title: {
                     text: null
                 }

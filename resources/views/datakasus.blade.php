@@ -57,9 +57,6 @@
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
-                                <tbody id="tableBody">
-                                <td colspan="10" class="center">Memuat ...</td>
-                                </tbody>
                                 <tbody>
                                 @foreach($kasus as $data)
                                     <tr>
