@@ -3,17 +3,15 @@
     <div class="card bg-gradient-default">
         <div class="card-body">
             <div class="dropdown right" style="z-index: 9999">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-                    Tahun
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">2013</a>
-                    <a class="dropdown-item" href="#">2014</a>
-                    <a class="dropdown-item" href="#">2015</a>
-                    <a class="dropdown-item" href="#">2016</a>
-                    <a class="dropdown-item" href="#">2017</a>
-                    <a class="dropdown-item" href="#">2018</a>
-                </div>
+
+                <label class="dropdown btn-danger" for="formTahun">
+
+                    <select class="dropdown-content right" id="formTahun" onchange="updateMaps(this.value)">
+                        @for($i = 2013 ; $i <= date('Y'); $i += 1)
+                            <option value="{{$i}}">{{$i}}</option>
+                        @endfor
+                    </select>
+                </label>
             </div>
             <br><br>
             <div id="mapid"></div>
@@ -79,27 +77,35 @@
         //     }
         // }).addTo(mymap);
 
+        function updateMaps(tahun) {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:5000/nilai-kerawanan/' + tahun,
+                dataType: "json",
+                success: function (data) {
+                    // console.log(data);
+                    $.each(data.data, function (i, item) {
+                        // console.log(item);
+                        L.geoJson(JSON.parse(item.kabupaten[1]), {
+                            style: function (feature) {
+                                return {
+                                    color: getColor(item.status.toLowerCase()),
+                                    weight: 0.4,
+                                    opacity: 0.6,
+                                    fillColor: item.color,
+                                    fillOpacity: 0.6
+                                };
+                            },
+                            onEachFeature: function (feature, layer) {
+                                layer.bindPopup("<div class='row col-12 center' style='height: 5px; background-color: blue;'></div><div class='row'>Kabupaten : " + item.kabupaten[0] + "</div><div class='row'>" + "Kerawanan : " + item.kerawanan + "</div><div class='row'>" + "Status : " + item.status + "</div>");
+                            }
+                        }).addTo(mymap);
+                    });
+                }
+            });
+        }
 
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:5000/nilai-kerawanan/' + tahun,
-            dataType: "json",
-            success: function(data)
-            {
-                // console.log(data);
-                $.each(data.kerawanan, function(i, item) {
-                    // console.log(item);
-                    L.geoJson(JSON.parse(item.kabupaten[1]),{
-                        style: function(feature){
-                            return { color: getColor(item.status.toLowerCase()), weight: 0.4, opacity: 0.6, fillColor: item.color, fillOpacity: 0.6 };
-                        },
-                        onEachFeature: function( feature, layer ){
-                            layer.bindPopup("<div class='row col-12 center' style='height: 5px; background-color: blue;'></div><div class='row'>Kabupaten : " + item.kabupaten[0] + "</div><div class='row'>" + "Kerawanan : " + item.kerawanan + "</div><div class='row'>" + "Status : " + item.status + "</div>");
-                        }
-                    }).addTo(mymap);
-                });
-            }
-        });
+        updateMaps(2013);
 
         {{--updateMap(({{ date('Y') }} - 5), {{ date('Y') }});--}}
     </script>
