@@ -7,7 +7,7 @@
             <label class="form-control-label" for="exampleFormControlSelect1">Periode
             <select class="form-control" id="exampleFormControlSelect1" name="id_periode">
             </select>
-            </label>s
+            </label>
         </div>
 
         <div class="form-group">

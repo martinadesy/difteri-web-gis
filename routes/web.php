@@ -30,7 +30,8 @@ Route::post('/update', 'DataKasusController@update')->name('update.update')->mid
 //Process
 Route::get('/bobot', 'BobotController@bobot')->name('bobot')->middleware('verify-login');
 Route::get('/bobotall', 'BobotAllController@bobotall')->name('bobotall')->middleware('verify-login');
-Route::get('/naturalbreaks', 'NBController@naturalbreaks')->name('naturalbreaks')->middleware('verify-login');
+Route::get('/prioritas', 'PrioritasController@prioritas')->name('prioritas')->middleware('verify-login');
+Route::post('/prioritas/update/{id}', 'PrioritasController@update')->name('prioritas.update')->middleware('verify-login');
 //Backend
 Route::get('/grafiktahunan', 'GrafikTahunanController@grafiktahunan')->name('grafiktahunan')->middleware('verify-login');
 Route::get('/grafikall', 'GrafikAllController@grafikall')->name('grafikall')->middleware('verify-login');

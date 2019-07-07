@@ -1,5 +1,6 @@
 @extends('layout.main')
 @section('content')
+
     <div class="card bg-gradient-default">
         <div class="card-body">
             <div class="dropdown right" style="z-index: 9999">
@@ -25,7 +26,10 @@
 @section('scripts')
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
     <script>
+        var data_geojson;
+        var mymap;
         $(document).ready(function () {
             $('#tabel-administrasi').DataTable({
                 language: {
@@ -36,11 +40,6 @@
                 }
             });
         });
-    </script>
-    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
-            integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
-            crossorigin=""></script>
-    <script>
         mymap = L.map('mapid').setView([-6.909455, 111.3381909], 7);
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -76,8 +75,8 @@
         //         layer.bindPopup("<div><div class='row'><img width=128 height=128 src=" + feature.properties.NOMOR_PETA + ".jpg></div><div class=row><center><a href=http://tides.big.go.id/DEMNAS/download.php?download_file=DEMNAS_" + feature.properties.NOMOR_PETA + "_v1.0.tif>DEMNAS_" + feature.properties.NOMOR_PETA + "</a></center></div></div>");
         //     }
         // }).addTo(mymap);
-
         function updateMaps(tahun) {
+
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:5000/nilai-kerawanan/' + tahun,
@@ -86,7 +85,7 @@
                     // console.log(data);
                     $.each(data.data, function (i, item) {
                         // console.log(item);
-                        L.geoJson(JSON.parse(item.kabupaten[1]), {
+                        data_geojson=L.geoJson(JSON.parse(item.kabupaten[1]), {
                             style: function (feature) {
                                 return {
                                     color: getColor(item.status.toLowerCase()),
@@ -101,11 +100,31 @@
                             }
                         }).addTo(mymap);
                     });
+                    try{
+                        mymap.removeLayer(data_geojson);
+                    }catch (e) {
+                        console.log(e)
+                    }
                 }
             });
         }
 
         updateMaps(2013);
+        var legend = L.control({position: 'bottomright'});
+
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+                //grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+                grades = ["rendah","sedang","tinggi"], //pretty break untuk 8
+                labels=[];
+            for (var i = 0; i < grades.length; i++) {
+                labels.push(
+                    '<i style="background:' + getColor(grades[i]) + '"></i>'+grades[i]+'<br>');
+            }
+            div.innerHTML = '<h4>Legenda:</h4><br>'+labels.join('<br>');
+            return div;
+        };
+        legend.addTo(mymap);
 
         {{--updateMap(({{ date('Y') }} - 5), {{ date('Y') }});--}}
     </script>

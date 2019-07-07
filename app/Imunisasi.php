@@ -14,10 +14,6 @@ class Imunisasi extends Model
         return $this->hasOne(Jatim::class, 'gid', 'id_jatim');
     }
 
-    public function getPeriode() {
-        return $this->hasOne(Periode::class, 'id', 'id_periode');
-    }
-
 
 
 }
