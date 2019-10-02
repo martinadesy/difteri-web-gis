@@ -22,7 +22,7 @@
 
                                     <div class="row">
                                         <div class="text-left col-sm-12 col-md-6">
-                                            <a onclick="loadModal(this)" target="/crudimunisasi" title="Tambah Data">
+                                            <a onclick="loadModal(this)" target="/createimunisasi" title="Tambah Data">
                                                 <button align="left" type="button" class="btn btn-primary">
                                                     <i class="fa fa-plus"></i>
                                                     Add Data
@@ -57,6 +57,7 @@
                                     <th>DPT 1</th>
                                     <th>DPT 2</th>
                                     <th>DPT 3</th>
+                                    <th>Bayi Lahir</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
@@ -68,6 +69,7 @@
                                         <th>{{$data->dpt_1}}</th>
                                         <th>{{$data->dpt_2}}</th>
                                         <th>{{$data->dpt_3}}</th>
+                                        <th>{{$data->bayi_lahir}}</th>
                                         <th>
                                             <button type="button" class="btn btn-success btn-icon-only">
                                                 <span class="btn-inner--icon">
@@ -102,6 +104,15 @@
 @endsection
 @section('scripts')
     <script>
+
+
+        $(document).ready(function () {
+            $('#form-konten').submit(function () {
+                var data = getFormData('form-konten');
+                ajaxTransfer("{{ url('createimunisasi')}}", data, '#result-form-konten');
+            })
+        })
+
         function deleteData(id) {
             var data = new FormData();
             data.append('id', id);

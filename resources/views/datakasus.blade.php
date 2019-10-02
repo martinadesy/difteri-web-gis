@@ -20,28 +20,29 @@
                             <div class="form-group">
 
                                 <div class="row">
-                                    <div class="text-left col-sm-12 col-md-6">
-                                        <a onclick="loadModal(this)" target="/crudkasus" title="Tambah Data">
-                                            <button align="left" type="button" class="btn btn-primary">
-                                                <i class="fa fa-plus"></i>
-                                                Add Data
-                                            </button>
-                                        </a>
-                                    </div>
+                                        <div class="text-left col-sm-12 col-md-6">
+                                            <a onclick="loadModal(this)" target="/crudkasus" title="Tambah Data">
+                                                <button align="left" type="button" class="btn btn-primary">
+                                                    <i class="fa fa-plus"></i>
+                                                    Add Data
+                                                </button>
+                                            </a>
+                                        </div>
 
                                     <div class="col text-right">
                                         <div class="dropdown-menu-sm-right col-sm-12 col-md-0">
                                             <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Periode
                                             </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                @for($i = 2013 ; $i <= date('Y'); $i += 1)
-                                                    <a class="dropdown-item" value="{{$i}}">{{$i}}</a>
-                                                @endfor
-                                                    {{--@for($i = 2013 ; $i <= date('Y'); $i += 1)--}}
-                                                        {{--<option </option>--}}
-                                                    {{--@endfor--}}
-                                            </div>
+
+                                            <label class="dropdown btn-danger" for="formTahun">
+                                                <select class="dropdown-content right" id="formTahun" onchange="updateTable(this.value)">
+                                                    @for($i = 2013 ; $i <= date('Y'); $i += 1)
+                                                        <option value="{{$i}}">{{$i}}</option>
+                                                    @endfor
+                                                </select>
+                                            </label>
+
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +139,7 @@
             })
         }
 
-
+        updateTable(2013);
 
 
         // $(document).ready(function () {

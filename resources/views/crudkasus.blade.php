@@ -4,10 +4,14 @@
     <form action="{{ route('crudkasus.create') }}" method="POST" id="form-konten" class='form-horizontal'>
 
         <div class="form-group">
-            <label class="form-control-label" for="exampleFormControlSelect1">Periode
-            <select class="form-control" id="exampleFormControlSelect1" name="id_periode">
-            </select>
-            </label>
+            <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Periode
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @for($i = 2013 ; $i <= date('Y'); $i += 1)
+                    <a class="dropdown-item" value="{{$i}}">{{$i}}</a>
+                @endfor
+            </div>
         </div>
 
         <div class="form-group">

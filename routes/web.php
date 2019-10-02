@@ -22,11 +22,17 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verify-lo
 Route::get('/datakasus', 'DataKasusController@datakasus')->name('datakasus')->middleware('verify-login');
 Route::get('/dataimunisasi', 'DataImunisasiController@dataimunisasi')->name('dataimunisasi')->middleware('verify-login');
 Route::get('/datajumpenduduk', 'DataJumlahPendudukController@datajumpenduduk')->name('datajumpenduduk')->middleware('verify-login');
-//CRUD
+//CRUD--KASUS
 Route::post('/crudkasus', 'DataKasusController@crudkasus')->name('crudkasus')->middleware('verify-login');
 Route::get('/destroy/{id}', 'DataKasusController@destroy')->name('destroy')->middleware('verify-login');
 Route::post('/save-crudkasus', 'DataKasusController@save')->name('crudkasus.create')->middleware('verify-login');
 Route::post('/update', 'DataKasusController@update')->name('update.update')->middleware('verify-login');
+//CRUD--IMUNISASI
+Route::post('/createimunisasi', 'DataImunisasiController@createimunisasi')->name('createimunisasi')->middleware('verify-login');
+Route::get('/destroy/{id}', 'DataImunisasiController@destroy')->name('destroy')->middleware('verify-login');
+Route::post('/save-createimunisasi', 'DataImunisasiController@save')->name('createimunisasi.create')->middleware('verify-login');
+Route::post('/update', 'DataImunisasiController@update')->name('update.update')->middleware('verify-login');
+//CRUD--PENDUDUK
 //Process
 Route::get('/bobot', 'BobotController@bobot')->name('bobot')->middleware('verify-login');
 Route::get('/bobotall', 'BobotAllController@bobotall')->name('bobotall')->middleware('verify-login');

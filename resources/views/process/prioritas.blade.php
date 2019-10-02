@@ -89,7 +89,7 @@
                                     <div class="form-group col-12">
                                         <div class="input-group input-group-alternative mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text bg-gray" style="color: whitesmoke">Jumlah Penderita</span>
+                                                <span class="input-group-text bg-gray" style="color: whitesmoke;width: 200px">Jumlah Penderita</span>
                                             </div>
                                             <select class="form-control" id="exampleFormControlSelect1"
                                                     name="jml_penderita" style="font-size: medium">
@@ -114,7 +114,7 @@
                                     <div class="form-group col-12">
                                         <div class="input-group input-group-alternative mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text bg-gray" style="color: whitesmoke">Kematian</span>
+                                                <span class="input-group-text bg-gray" style="color: whitesmoke;width: 200px">Kematian</span>
                                             </div>
                                             <select class="form-control" id="exampleFormControlSelect1" name="kematian"
                                                     style="font-size: medium">
@@ -139,7 +139,7 @@
                                     <div class="form-group col-12">
                                         <div class="input-group input-group-alternative mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text bg-gray" style="color: whitesmoke">Jumlah Penduduk</span>
+                                                <span class="input-group-text bg-gray" style="color: whitesmoke;width: 200px">Jumlah Penduduk</span>
                                             </div>
                                             <select class="form-control" id="exampleFormControlSelect1"
                                                     name="jml_penduduk" style="font-size: medium">
@@ -164,7 +164,7 @@
                                     <div class="form-group col-12">
                                         <div class="input-group input-group-alternative mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text bg-gray" style="color: whitesmoke">Imunisasi</span>
+                                                <span class="input-group-text bg-gray" style="color: whitesmoke;width: 200px">Imunisasi</span>
                                             </div>
                                             <select class="form-control" id="exampleFormControlSelect1"
                                                     name="imunisasi" style="font-size: medium">
@@ -189,7 +189,7 @@
                                     <div class="form-group col-12">
                                         <div class="input-group input-group-alternative mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text bg-gray" style="color: whitesmoke">Kelembaban Udara</span>
+                                                <span class="input-group-text bg-gray" style="color: whitesmoke;width: 200px">Kelembaban Udara</span>
                                             </div>
                                             <select class="form-control" name="kelembaban_udara"
                                                     style="font-size: medium">
